@@ -171,7 +171,8 @@ export default class Boxes extends Vue {
   login (): void {
     loginService
       .login(this.auth.userName, this.auth.passWord)
-      .then(() => {
+      .then(response => {
+        console.log(response)
         this.$router.push('/allforms')
       })
   }

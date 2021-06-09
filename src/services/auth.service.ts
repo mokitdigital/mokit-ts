@@ -11,16 +11,7 @@ export default class LoginService {
 
   login (userName: string, passWord: string): Promise<AxiosResponse> {
     return axios
-      .get(`${url}/api/auths/findOnes?userName=${userName}&passWord=${passWord}`, { headers: this.headers })
-      .then((user: any) => {
-        console.log(user)
-        if (user.token) {
-          localStorage.setItem('token', JSON.stringify(user.token))
-        }
-
-        return user
-      })
-      .catch((error) => this.handleResponse(error.response))
+      .post(`${url}/api/auths/findOnes`, { userName, passWord }, { headers: this.headers })
   }
 
   handleResponse (response: any) {

@@ -9,7 +9,7 @@
     footer-border-variant="dark"
     hide-header-close
     content-class="rounded-circle"
-    size="lg"
+    :size="size"
   >
     <template #modal-header="{ close }">
       <font-awesome-icon :icon="icon" class="my-1 mx-4 fs-1" />
@@ -19,8 +19,11 @@
 
     <slot name="body" />
 
-    <template #modal-footer="{ close }">
-      <p class="text-white-50 text-center pointer" @click="close" v-scroll-to="'#formulario'">Gostou? Faça um orçamento!</p>
+    <template #modal-footer="{ close }" >
+      <p v-if="orcamento" class="text-white-50 text-center pointer" @click="close" v-scroll-to="'#formulario'">
+        Gostou? Faça um orçamento!
+      </p>
+      <p v-else>Mokit Digital</p>
     </template>
   </b-modal>
 </template>
@@ -32,6 +35,8 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 export default class Modal extends Vue {
   @Prop() readonly icon: string | undefined
   @Prop() readonly title: string | undefined
+  @Prop() readonly size: string | undefined
+  @Prop() readonly orcamento: boolean | undefined
 }
 </script>
 

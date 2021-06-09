@@ -1,6 +1,6 @@
 <template>
   <div v-if="icon">
-    <modal-component :icon="icon" :title="title">
+    <modal-component :icon="icon" :title="title" :size="sizes" :orcamento="orcamentos">
       <template v-slot:body>
         <p class="text-white p-5" v-if="box === 'about'">
           Somos uma agência desenvolvedora de websites,
@@ -79,14 +79,45 @@
             </b-col>
           </b-row>
         </div>
+
+        <div v-if="box === 'login'">
+          <b-row>
+            <b-col cols="12" class="px-5 my-3">
+              <b-form-group label="Seu usuário" label-class="text-white">
+                <b-form-input
+                  type="text"
+                  v-model="auth.userName"
+                  placeholder="Usuário"
+                  required
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+            <b-col cols="12" class="px-5 my-3">
+              <b-form-group label="Senha" label-class="text-white">
+                <b-form-input
+                  type="password"
+                  v-model="auth.passWord"
+                  placeholder="Senha"
+                  required
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
+            <b-col cols="12" class="px-5 my-3">
+              <b-button
+                @click="login()"
+              >Entrar</b-button>
+            </b-col>
+          </b-row>
+        </div>
       </template>
     </modal-component>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Vue, Component, Prop, Emit } from 'vue-property-decorator'
 import ModalComponent from '@/components/ModalComponent.vue'
+import { loginService } from '@/services/auth.service'
 
 @Component({
   components: { ModalComponent }
@@ -96,6 +127,17 @@ export default class Boxes extends Vue {
   @Prop() readonly icon!: string
   @Prop() readonly title!: string
   @Prop() readonly box!: string
+  @Prop() readonly size!: string
+  @Prop() readonly orcamento!: string
+
+  private auth = {
+    userName: '',
+    passWord: ''
+  }
+
+  private sizes = this.size || 'lg'
+
+  private orcamentos = this.orcamento
 
   private tipoSite = [
     {
@@ -124,6 +166,15 @@ export default class Boxes extends Vue {
       id: 'site-erp'
     }
   ]
+
+  @Emit()
+  login (): void {
+    loginService
+      .login(this.auth.userName, this.auth.passWord)
+      .then(() => {
+        this.$router.push('/allforms')
+      })
+  }
 }
 </script>
 

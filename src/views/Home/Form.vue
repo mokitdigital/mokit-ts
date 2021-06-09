@@ -17,7 +17,7 @@
                   class="my-2"
                 >
                   <b-form-input
-                    v-model="form.nome"
+                    v-model="form.nomeCompleto"
                     placeholder="Coloque seu nome"
                   ></b-form-input>
                 </b-form-group>
@@ -67,7 +67,7 @@
                 >
                   <b-form-select
                     class="form-control"
-                    v-model="form.tipoSite"
+                    v-model="form.tipo"
                     :options="sites"
                     required
                   ></b-form-select>
@@ -132,15 +132,16 @@
 
 <script lang="ts">
 import { Component, Vue, Emit } from 'vue-property-decorator'
+import { formService } from '@/services/form.service'
 
 @Component
 export default class Form extends Vue {
   private form = {
-    nome: '',
+    nomeCompleto: '',
     email: '',
     celular: '',
     empresa: '',
-    tipoSite: null
+    tipo: null
   }
 
   private status = 'not_accepted'
@@ -148,18 +149,22 @@ export default class Form extends Vue {
   // eslint-disable-next-line @typescript-eslint/ban-types
   private sites: Array<object> = [
     { text: 'Selecione uma opção', value: null },
-    { text: 'Portfólio', value: 'portfolio' },
-    { text: 'Cartão de Visita', value: 'cartao de visita' },
-    { text: 'E-Commerce', value: 'ecommerce' },
-    { text: 'Delivery', value: 'delivery' },
-    { text: 'ERP/Software Interno', value: 'erp' }
+    { text: 'Portfólio', value: 'Portfólio' },
+    { text: 'Cartão de Visita', value: 'Cartão de Visita' },
+    { text: 'E-Commerce', value: 'E-Commerce' },
+    { text: 'Delivery', value: 'Delivery' },
+    { text: 'ERP/Software Interno', value: 'ERP/Software Interno' }
   ]
 
   private show = true
 
   @Emit()
   onSubmit (): void {
-    alert(JSON.stringify(this.form))
+    formService
+      .createForm(this.form)
+      .then(response => {
+        console.log(response.data)
+      })
     this.show = !this.show
   }
 }

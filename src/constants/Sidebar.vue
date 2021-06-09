@@ -9,15 +9,15 @@
       shadow
     >
       <div class="px-3 py-5">
-        <p id="list-menu-1" @click="openModal2('address-card', 'QUEM SOMOS', 'about')">
+        <p id="list-menu-1" @click="openModal('address-card', 'QUEM SOMOS', 'about')">
           <font-awesome-icon icon="address-card" class="mx-2" />
           Quem somos?
         </p>
-        <p id="list-menu-2" @click="openModal2('dice-d20', 'SITES', 'site')">
+        <p id="list-menu-2" @click="openModal('dice-d20', 'SITES', 'site')">
           <font-awesome-icon icon="dice-d20" class="mx-2"></font-awesome-icon>
           Sites
         </p>
-        <p id="list-menu-3" @click="openModal2('people-carry', 'NOSSA EQUIPE', 'equipe')">
+        <p id="list-menu-3" @click="openModal('people-carry', 'NOSSA EQUIPE', 'equipe')">
           <font-awesome-icon icon="people-carry" class="mx-2"></font-awesome-icon>
           Nossa Equipe
         </p>
@@ -29,7 +29,7 @@
           <font-awesome-icon icon="question-circle" class="mx-2"></font-awesome-icon>
           Atendimento Virtual
         </p>
-        <p id="list-menu-6" @click="openModal2('headset', 'SUPORTE PREMIUM', 'suporte')">
+        <p id="list-menu-6" @click="openModal('headset', 'SUPORTE PREMIUM', 'suporte')">
           <font-awesome-icon icon="headset" class="mx-2"></font-awesome-icon>
           Suporte Premium
         </p>
@@ -41,13 +41,13 @@
           <font-awesome-icon icon="handshake" class="mx-2"></font-awesome-icon>
           Torne-se Empreendedor
         </p>
-        <p id="list-menu-9">
+        <p id="list-menu-9" @click="openModal('sign-in-alt', 'LOGIN', 'login')">
           <font-awesome-icon icon="sign-in-alt" class="mx-2"></font-awesome-icon>
           Entrar
         </p>
       </div>
     </b-sidebar>
-    <boxes-modal :box="box" :icon="icon" :title="title" />
+    <boxes-modal :box="box" :icon="icon" :title="title" :size="'md'" :orcamento="false" />
   </div>
 </template>
 
@@ -64,7 +64,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    openModal2 (icon: string, title: string, box: string): void {
+    openModal (icon: string, title: string, box: string): void {
       this.icon = icon
       this.title = title
       this.box = box

@@ -9,6 +9,12 @@
       shadow
     >
       <div class="px-3 py-5">
+        <p id="list-menu-1">
+          <router-link to="/" class="text-white nounderline">
+          <font-awesome-icon icon="globe" class="mx-2" />
+            Página Inicial
+          </router-link>
+        </p>
         <p id="list-menu-1" @click="openModal('address-card', 'QUEM SOMOS', 'about')">
           <font-awesome-icon icon="address-card" class="mx-2" />
           Quem somos?
@@ -41,7 +47,14 @@
           <font-awesome-icon icon="handshake" class="mx-2"></font-awesome-icon>
           Torne-se Empreendedor
         </p>
-        <p id="list-menu-9" @click="openModal('sign-in-alt', 'LOGIN', 'login')">
+        <hr>
+        <p v-if="token" id="list-menu-9">
+          <router-link to="/allforms" class="text-white nounderline">
+            <font-awesome-icon icon="user-alt" class="mx-2"></font-awesome-icon>
+            Luan
+          </router-link>
+        </p>
+        <p v-else id="list-menu-9" @click="openModal('sign-in-alt', 'LOGIN', 'login')">
           <font-awesome-icon icon="sign-in-alt" class="mx-2"></font-awesome-icon>
           Entrar
         </p>
@@ -54,13 +67,15 @@
 <script lang="ts">
 import Vue from 'vue'
 import BoxesModal from '@/views/Home/Boxes/BoxesModal.vue'
+import { authHeader } from '@/helpers/authHeader'
 export default Vue.extend({
   components: { BoxesModal },
   data () {
     return {
       icon: '',
       title: '',
-      box: ''
+      box: '',
+      token: undefined
     }
   },
   methods: {
@@ -70,6 +85,9 @@ export default Vue.extend({
       this.box = box
       this.$bvModal.show('modal')
     }
+  },
+  mounted () {
+    this.token = authHeader()
   }
 })
 </script>
@@ -99,5 +117,9 @@ export default Vue.extend({
 #list-menu-9:hover {
   background-color: rgb(119, 119, 119);
   cursor: pointer;
+}
+
+.nounderline {
+  text-decoration: none !important
 }
 </style>

@@ -4,7 +4,7 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faAddressCard, faBars, faChevronDown, faCommentDollar, faDiceD20, faHandshake, faHeadset, faPeopleCarry, faQuestionCircle, faShareAlt, faSignInAlt, faTimes, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faAddressCard, faBars, faChevronDown, faCommentDollar, faDiceD20, faGlobe, faHandshake, faHeadset, faPeopleCarry, faQuestionCircle, faShareAlt, faSignInAlt, faTimes, faTrashAlt, faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { BootstrapVue } from 'bootstrap-vue'
 import VueTheMask from 'vue-the-mask'
@@ -40,7 +40,9 @@ library.add(
   faTrashAlt,
   faQuestionCircle,
   faShareAlt,
-  faHandshake
+  faHandshake,
+  faGlobe,
+  faUserAlt
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

@@ -172,7 +172,8 @@ export default class Boxes extends Vue {
     loginService
       .login(this.auth.userName, this.auth.passWord)
       .then(response => {
-        console.log(response)
+        localStorage.setItem('token', JSON.stringify(response.data.token))
+        this.$bvModal.show('modal')
         this.$router.push('/allforms')
       })
   }
